@@ -1,6 +1,7 @@
 // app/(public)/help-support/page.tsx
 'use client';
 
+import { CMSPageRenderer } from '@/components/cms/cms-page-renderer';
 import { useState } from 'react';
 import { z } from 'zod';
 import { useForm } from 'react-hook-form';
@@ -12,7 +13,7 @@ import { toast } from 'sonner';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
-import { DyraneCard, DyraneCardContent, DyraneCardHeader, DyraneCardTitle, DyraneCardDescription, DyraneCardFooter } from '@/components/dyrane-ui/dyrane-card';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from '@/components/ui/card';
 import { DyraneButton } from '@/components/dyrane-ui/dyrane-button';
 import { Mail, Phone, MessageSquare, HelpCircle, BookOpen, GraduationCap, CreditCard, User, AlertCircle, Search, Send } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
@@ -115,7 +116,8 @@ const faqItemsByCategory = {
   ],
 };
 
-export default function SupportPage() {
+// Fallback content for when CMS is disabled
+const FallbackContent = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState<string>('enrollment');
   const [searchQuery, setSearchQuery] = useState('');
@@ -152,11 +154,6 @@ export default function SupportPage() {
 
   return (
     <div className="py-12">
-      <div className="flex flex-col items-center mb-6">
-        <HelpCircle className="h-8 w-8 text-primary mb-2" />
-        <h1 className="text-3xl font-bold text-center">Help & Support Center</h1>
-      </div>
-
       <p className="text-muted-foreground text-center mb-8">
         Find answers to common questions or get in touch with our support team for personalized assistance.
       </p>
@@ -179,7 +176,7 @@ export default function SupportPage() {
             />
           </div>
 
-          <DyraneCard className="overflow-hidden">
+          <Card className="overflow-hidden">
             <div className="flex flex-col md:flex-row">
               {/* Category Sidebar */}
               <div className="w-full md:w-64 border-r border-border/50 shrink-0">
@@ -265,82 +262,82 @@ export default function SupportPage() {
                 </ScrollArea>
               </div>
             </div>
-            <DyraneCardFooter className="bg-muted/30 border-t p-4">
+            <CardFooter className="bg-muted/30 border-t p-4">
               <div className="w-full text-center text-muted-foreground">
                 Can't find what you're looking for?
                 <DyraneButton variant="link" className="p-0 h-auto ml-1" onClick={() => document.querySelector('[data-value="contact"]')?.dispatchEvent(new Event('click'))}>
                   Contact our support team
                 </DyraneButton>
               </div>
-            </DyraneCardFooter>
-          </DyraneCard>
+            </CardFooter>
+          </Card>
         </TabsContent>
 
         <TabsContent value="contact" className="space-y-8">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-            <DyraneCard className="overflow-hidden group border-primary/10 hover:border-primary/30 transition-colors">
+            <Card className="overflow-hidden group border-primary/10 hover:border-primary/30 transition-colors">
               <div className="bg-gradient-to-br from-primary/5 to-primary/10 p-6 flex flex-col items-center text-center h-full relative">
                 <div className="absolute inset-0 bg-grid-primary/5 [mask-image:linear-gradient(0deg,transparent,rgba(0,0,0,0.6))]" />
                 <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
                   <Mail className="h-6 w-6 text-primary" />
                 </div>
-                <DyraneCardTitle className="text-lg mb-2">Email Support</DyraneCardTitle>
-                <DyraneCardDescription className="mb-4">Send us an email anytime</DyraneCardDescription>
+                <CardTitle className="text-lg mb-2">Email Support</CardTitle>
+                <CardDescription className="mb-4">Send us an email anytime</CardDescription>
                 <DyraneButton variant="outline" asChild className="mt-auto group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
                   <a href="mailto:support@1techacademy.com">
                     support@1techacademy.com
                   </a>
                 </DyraneButton>
               </div>
-            </DyraneCard>
+            </Card>
 
-            <DyraneCard className="overflow-hidden group border-primary/10 hover:border-primary/30 transition-colors">
+            <Card className="overflow-hidden group border-primary/10 hover:border-primary/30 transition-colors">
               <div className="bg-gradient-to-br from-primary/5 to-primary/10 p-6 flex flex-col items-center text-center h-full relative">
                 <div className="absolute inset-0 bg-grid-primary/5 [mask-image:linear-gradient(0deg,transparent,rgba(0,0,0,0.6))]" />
                 <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
                   <Phone className="h-6 w-6 text-primary" />
                 </div>
-                <DyraneCardTitle className="text-lg mb-2">Phone Support</DyraneCardTitle>
-                <DyraneCardDescription className="mb-4">Available Mon-Fri, 9am-5pm</DyraneCardDescription>
+                <CardTitle className="text-lg mb-2">Phone Support</CardTitle>
+                <CardDescription className="mb-4">Available Mon-Fri, 9am-5pm</CardDescription>
                 <DyraneButton variant="outline" asChild className="mt-auto group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
                   <a href="tel:+2348012345678">
                     +234 801 234 5678
                   </a>
                 </DyraneButton>
               </div>
-            </DyraneCard>
+            </Card>
 
-            <DyraneCard className="overflow-hidden group border-primary/10 hover:border-primary/30 transition-colors">
+            <Card className="overflow-hidden group border-primary/10 hover:border-primary/30 transition-colors">
               <div className="bg-gradient-to-br from-primary/5 to-primary/10 p-6 flex flex-col items-center text-center h-full relative">
                 <div className="absolute inset-0 bg-grid-primary/5 [mask-image:linear-gradient(0deg,transparent,rgba(0,0,0,0.6))]" />
                 <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
                   <MessageSquare className="h-6 w-6 text-primary" />
                 </div>
-                <DyraneCardTitle className="text-lg mb-2">Live Chat</DyraneCardTitle>
-                <DyraneCardDescription className="mb-4">Chat with our support team</DyraneCardDescription>
+                <CardTitle className="text-lg mb-2">Live Chat</CardTitle>
+                <CardDescription className="mb-4">Chat with our support team</CardDescription>
                 <DyraneButton className="mt-auto">
                   Start Chat
                 </DyraneButton>
               </div>
-            </DyraneCard>
+            </Card>
           </div>
 
-          <DyraneCard className="overflow-hidden border-primary/10">
+          <Card className="overflow-hidden border-primary/10">
             <div className="relative">
               <div className="absolute inset-0 bg-grid-primary/5 [mask-image:linear-gradient(0deg,transparent,rgba(0,0,0,0.6))]" />
-              <DyraneCardHeader className="relative">
+              <CardHeader className="relative">
                 <div className="flex items-center gap-2 mb-2">
                   <div className="h-8 w-8 rounded-full bg-primary/10 flex items-center justify-center">
                     <Mail className="h-5 w-5 text-primary" />
                   </div>
-                  <DyraneCardTitle>Send us a message</DyraneCardTitle>
+                  <CardTitle>Send us a message</CardTitle>
                 </div>
-                <DyraneCardDescription>
+                <CardDescription>
                   Fill out the form below and we'll get back to you as soon as possible.
-                </DyraneCardDescription>
-              </DyraneCardHeader>
+                </CardDescription>
+              </CardHeader>
             </div>
-            <DyraneCardContent className="relative">
+            <CardContent className="relative">
               <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -422,10 +419,19 @@ export default function SupportPage() {
                   </DyraneButton>
                 </form>
               </Form>
-            </DyraneCardContent>
-          </DyraneCard>
+            </CardContent>
+          </Card>
         </TabsContent>
       </Tabs>
     </div>
+  );
+};
+
+export default function SupportPage() {
+  return (
+    <CMSPageRenderer
+      pageType="help-support"
+      fallbackContent={<FallbackContent />}
+    />
   );
 }

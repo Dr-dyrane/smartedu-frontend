@@ -1,28 +1,24 @@
 // app/(public)/cookies-policy/page.tsx
 'use client';
 
+import { CMSPageRenderer } from '@/components/cms/cms-page-renderer';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
-import { DyraneCard, DyraneCardContent, DyraneCardHeader, DyraneCardTitle, DyraneCardDescription } from '@/components/dyrane-ui/dyrane-card';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { DyraneButton } from '@/components/dyrane-ui/dyrane-button';
 import { Cookie, ExternalLink, Settings } from 'lucide-react';
 import Link from 'next/link';
 import { Separator } from '@/components/ui/separator';
 import { cn } from '@/lib/utils';
 
-export default function CookiesPolicyPage() {
-  return (
-    <div className="py-12">
-      <div className="flex flex-col items-center mb-6">
-        <Cookie className="h-8 w-8 text-primary mb-2" />
-        <h1 className="text-3xl font-bold text-center">Cookies Policy</h1>
-      </div>
+// Fallback content for when CMS is disabled
+const FallbackContent = () => (
+  <div className="py-12">
+    <p className="text-muted-foreground text-center mb-8">
+      This Cookies Policy explains how 1Tech Academy uses cookies and similar technologies to recognize you when you visit our website. Last updated: June 15, 2024.
+    </p>
 
-      <p className="text-muted-foreground text-center mb-8">
-        This Cookies Policy explains how 1Tech Academy uses cookies and similar technologies to recognize you when you visit our website. Last updated: June 15, 2024.
-      </p>
-
-      <div className='w-full bg-card/5 backdrop-blur-sm rounded-xl border'>
+    <div className='w-full bg-card/5 backdrop-blur-sm rounded-xl border'>
         <Tabs defaultValue="overview" className="w-full">
           <div className="p-4 border-b">
             <ScrollArea className="w-full whitespace-nowrap">
@@ -251,5 +247,13 @@ export default function CookiesPolicyPage() {
         </Tabs>
       </div>
     </div>
+);
+
+export default function CookiesPolicyPage() {
+  return (
+    <CMSPageRenderer
+      pageType="cookies-policy"
+      fallbackContent={<FallbackContent />}
+    />
   );
 }

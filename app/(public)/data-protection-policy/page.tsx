@@ -1,7 +1,7 @@
 // app/(public)/data-protection-policy/page.tsx
 'use client';
 
-import { DyraneCard } from '@/components/dyrane-ui/dyrane-card';
+import { CMSPageRenderer } from '@/components/cms/cms-page-renderer';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
 import { Separator } from '@/components/ui/separator';
@@ -9,19 +9,14 @@ import { ShieldCheck } from 'lucide-react';
 import { Card } from '@/components/ui/card';
 import { cn } from '@/lib/utils';
 
-export default function DataProtectionPolicyPage() {
-  return (
-    <div className="w-full">
-      <div className="flex items-center justify-center gap-3 mb-8">
-        <ShieldCheck className="h-8 w-8 text-primary" />
-        <h1 className="text-3xl font-bold text-center">Data Protection Policy</h1>
-      </div>
+// Fallback content for when CMS is disabled
+const FallbackContent = () => (
+  <div className="w-full">
+    <p className="text-center text-muted-foreground mb-8">
+      Last updated: June 15, 2024
+    </p>
 
-      <p className="text-center text-muted-foreground mb-8">
-        Last updated: June 15, 2024
-      </p>
-
-      <div className='w-full bg-card/5 backdrop-blur-sm rounded-xl border p-4'>
+    <div className='w-full bg-card/5 backdrop-blur-sm rounded-xl border p-4'>
         <Tabs defaultValue="overview" className="w-full">
           <div className="p-4 border-b">
             <ScrollArea className="w-full whitespace-nowrap">
@@ -209,5 +204,13 @@ export default function DataProtectionPolicyPage() {
         </Tabs>
       </div>
     </div>
+);
+
+export default function DataProtectionPolicyPage() {
+  return (
+    <CMSPageRenderer
+      pageType="data-protection-policy"
+      fallbackContent={<FallbackContent />}
+    />
   );
 }

@@ -5,7 +5,7 @@ import { useState } from 'react';
 import { z } from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { DyraneCard, DyraneCardContent, DyraneCardHeader, DyraneCardTitle, DyraneCardDescription, DyraneCardFooter } from '@/components/dyrane-ui/dyrane-card';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from '@/components/ui/card';
 import { DyraneButton } from '@/components/dyrane-ui/dyrane-button';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
@@ -83,22 +83,22 @@ ${values.name}
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
         <div className="lg:col-span-2">
-          <DyraneCard className="overflow-hidden border-primary/10">
+          <Card className="overflow-hidden border-primary/10">
             <div className="relative">
               <div className="absolute inset-0 bg-grid-primary/5 [mask-image:linear-gradient(0deg,transparent,rgba(0,0,0,0.6))]" />
-              <DyraneCardHeader className="relative">
+              <CardHeader className="relative">
                 <div className="flex items-center gap-2 mb-2">
                   <div className="h-8 w-8 rounded-full bg-primary/10 flex items-center justify-center">
                     <Mail className="h-5 w-5 text-primary" />
                   </div>
-                  <DyraneCardTitle>Send us a message</DyraneCardTitle>
+                  <CardTitle>Send us a message</CardTitle>
                 </div>
-                <DyraneCardDescription>
+                <CardDescription>
                   Fill out the form below and we'll get back to you as soon as possible.
-                </DyraneCardDescription>
-              </DyraneCardHeader>
+                </CardDescription>
+              </CardHeader>
             </div>
-            <DyraneCardContent className="relative">
+            <CardContent className="relative">
               <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -208,24 +208,24 @@ ${values.name}
                   </DyraneButton>
                 </form>
               </Form>
-            </DyraneCardContent>
-          </DyraneCard>
+            </CardContent>
+          </Card>
         </div>
 
         <div className="space-y-6">
-          <DyraneCard className="overflow-hidden border-primary/10">
+          <Card className="overflow-hidden border-primary/10">
             <div className="relative">
               <div className="absolute inset-0 bg-grid-primary/5 [mask-image:linear-gradient(0deg,transparent,rgba(0,0,0,0.6))]" />
-              <DyraneCardHeader className="relative">
+              <CardHeader className="relative">
                 <div className="flex items-center gap-2 mb-2">
                   <div className="h-8 w-8 rounded-full bg-primary/10 flex items-center justify-center">
                     <Building2 className="h-5 w-5 text-primary" />
                   </div>
-                  <DyraneCardTitle>Contact Information</DyraneCardTitle>
+                  <CardTitle>Contact Information</CardTitle>
                 </div>
-              </DyraneCardHeader>
+              </CardHeader>
             </div>
-            <DyraneCardContent className="relative space-y-6">
+            <CardContent className="relative space-y-6">
               <div className="flex items-start gap-4 p-3 rounded-lg bg-muted/50 hover:bg-muted/80 transition-colors">
                 <div className="h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
                   <MapPin className="h-5 w-5 text-primary" />
@@ -271,30 +271,30 @@ ${values.name}
                   <p className="text-muted-foreground">Sunday: Closed</p>
                 </div>
               </div>
-            </DyraneCardContent>
-          </DyraneCard>
+            </CardContent>
+          </Card>
 
-          <DyraneCard className="overflow-hidden border-primary/10">
+          <Card className="overflow-hidden border-primary/10">
             <div className="relative">
               <div className="absolute inset-0 bg-grid-primary/5 [mask-image:linear-gradient(0deg,transparent,rgba(0,0,0,0.6))]" />
-              <DyraneCardHeader className="relative">
+              <CardHeader className="relative">
                 <div className="flex items-center gap-2 mb-2">
                   <div className="h-8 w-8 rounded-full bg-primary/10 flex items-center justify-center">
                     <MapPin className="h-5 w-5 text-primary" />
                   </div>
-                  <DyraneCardTitle>Our Location</DyraneCardTitle>
+                  <CardTitle>Our Location</CardTitle>
                 </div>
-              </DyraneCardHeader>
+              </CardHeader>
             </div>
-            <DyraneCardContent className="relative">
+            <CardContent className="relative">
               <div className="aspect-video bg-muted rounded-md overflow-hidden relative">
                 {/* This would be replaced with an actual map component */}
                 <div className="absolute inset-0 flex items-center justify-center">
                   <p className="text-muted-foreground">Interactive Map</p>
                 </div>
               </div>
-            </DyraneCardContent>
-            <DyraneCardFooter className="relative">
+            </CardContent>
+            <CardFooter className="relative">
               <DyraneButton className="w-full" asChild>
                 <a href="https://maps.google.com/?q=17+Aje+Street+Sabo+Yaba+Lagos+Nigeria" target="_blank" rel="noopener noreferrer">
                   <MapPin className="mr-2 h-4 w-4" />
@@ -302,8 +302,8 @@ ${values.name}
                   <ExternalLink className="ml-2 h-4 w-4" />
                 </a>
               </DyraneButton>
-            </DyraneCardFooter>
-          </DyraneCard>
+            </CardFooter>
+          </Card>
         </div>
       </div>
     </div>

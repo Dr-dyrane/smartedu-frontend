@@ -1,4 +1,5 @@
-// Project: 1Tech Academy - Dynamic Landing Page app/page.tsx
+// Example of how the landing page can be made dynamic using CMS data
+// This file demonstrates the concept - you would replace app/page.tsx with this approach
 
 'use client'
 
@@ -6,7 +7,6 @@ import { useEffect } from "react"
 import { useAppDispatch } from "@/store/hooks"
 import { fetchCourses } from "@/features/public-course/store/public-course-slice"
 import { useLandingPageData } from "@/hooks/useWebsiteData"
-import { isCMSEnabled } from "@/lib/env/website-cms"
 
 // Layout components
 import NavBar from "@/components/layout/navbar"
@@ -17,21 +17,12 @@ import { ScrollIndicator } from "@/components/layout/scroll-indicator"
 // Dynamic section renderer
 import { DynamicSectionRenderer } from "@/components/website/dynamic-section-renderer"
 
-// Static fallback components
-import { StaticLandingPage } from "@/components/landing/static-landing-page"
-
-// CMS status indicator
-import { CMSStatusIndicator } from "@/components/website/cms-status-indicator"
-
-// CMS feature announcement
-import { CMSFeatureAnnouncement } from "@/components/website/cms-feature-announcement"
-
 // Loading and error components
 import { Skeleton } from "@/components/ui/skeleton"
 import { Alert, AlertDescription } from "@/components/ui/alert"
 import { AlertTriangle } from "lucide-react"
 
-export default function LandingPage() {
+export default function DynamicLandingPage() {
   const dispatch = useAppDispatch()
   const { landingPage, sections, loading, error } = useLandingPageData()
 
@@ -40,11 +31,7 @@ export default function LandingPage() {
     dispatch(fetchCourses())
   }, [dispatch])
 
-  // Check if CMS is enabled
-  const cmsEnabled = isCMSEnabled()
-
-  // Loading state
-  if (loading && cmsEnabled) {
+  if (loading) {
     return (
       <div className="flex flex-col min-h-screen w-full relative">
         <ScrollIndicator />
@@ -63,7 +50,7 @@ export default function LandingPage() {
               </div>
             </div>
           </div>
-
+          
           {/* Loading skeletons for other sections */}
           {[1, 2, 3, 4].map((i) => (
             <div key={i} className="py-16">
@@ -86,8 +73,28 @@ export default function LandingPage() {
     )
   }
 
-  // Error state
-  if (error && cmsEnabled) {
+  if (error) {
+    return (
+      <div className="flex flex-col min-h-screen w-full relative">
+        <ScrollIndicator />
+        <NavBar />
+        <main className="flex-1 flex items-center justify-center">
+          <div className="container px-4 md:px-6">
+            <Alert variant="destructive" className="max-w-md mx-auto">
+              <AlertTriangle className="h-4 w-4" />
+              <AlertDescription>
+                Failed to load page content: {error}
+              </AlertDescription>
+            </Alert>
+          </div>
+        </main>
+        <Footer />
+      </div>
+    )
+  }
+
+  // Fallback to static content if no CMS data is available
+  if (!landingPage || sections.length === 0) {
     return (
       <div className="flex flex-col min-h-screen w-full relative">
         <ScrollIndicator />
@@ -96,20 +103,12 @@ export default function LandingPage() {
           <div className="py-16 md:py-24 relative overflow-hidden">
             <AbstractBackground className="opacity-90 dark:opacity-80" />
             <div className="container px-4 md:px-6 relative text-center">
-              <Alert variant="destructive" className="max-w-md mx-auto">
-                <AlertTriangle className="h-4 w-4" />
-                <AlertDescription>
-                  {error}
-                </AlertDescription>
-              </Alert>
-              <div className="mt-8">
-                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tighter leading-tight mb-8">
-                  Welcome to 1Tech Academy
-                </h1>
-                <p className="text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto">
-                  We're experiencing technical difficulties. Please try again later.
-                </p>
-              </div>
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tighter leading-tight mb-8">
+                Welcome to 1Tech Academy
+              </h1>
+              <p className="text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto">
+                Content management system is being set up. Please check back soon.
+              </p>
             </div>
           </div>
         </main>
@@ -118,43 +117,48 @@ export default function LandingPage() {
     )
   }
 
-  // Use dynamic content if CMS is enabled and we have data
-  if (cmsEnabled && landingPage && sections.length > 0) {
-    return (
-      <div className="flex flex-col min-h-screen w-full relative">
-        {/* Scroll Indicator */}
-        <ScrollIndicator />
-
-        {/* Header */}
-        <NavBar />
-
-        <main className="flex-1">
-          {/* Background for all sections */}
-          <div className="relative">
-            <AbstractBackground className="opacity-90 dark:opacity-80 fixed inset-0 z-0" />
-
-            {/* Dynamic sections */}
-            <div className="relative z-10">
-              <DynamicSectionRenderer sections={sections} />
-            </div>
-          </div>
-        </main>
-
-        {/* Footer */}
-        <Footer />
-
-        {/* CMS Status Indicator */}
-        <CMSStatusIndicator isUsingDynamicContent={true} />
-      </div>
-    )
-  }
-
-  // Fallback to static content if CMS is disabled or no data
   return (
-    <>
-      <StaticLandingPage />
-      <CMSStatusIndicator isUsingDynamicContent={false} />
-      {cmsEnabled && <CMSFeatureAnnouncement variant="banner" showOnce={true} />}
-    </>
+    <div className="flex flex-col min-h-screen w-full relative">
+      {/* Scroll Indicator */}
+      <ScrollIndicator />
+
+      {/* Header */}
+      <NavBar />
+
+      <main className="flex-1">
+        {/* Background for all sections */}
+        <div className="relative">
+          <AbstractBackground className="opacity-90 dark:opacity-80 fixed inset-0 z-0" />
+          
+          {/* Dynamic sections */}
+          <div className="relative z-10">
+            <DynamicSectionRenderer sections={sections} />
+          </div>
+        </div>
+      </main>
+
+      {/* Footer */}
+      <Footer />
+    </div>
   )
 }
+
+// Usage instructions:
+// 1. Replace the content of app/page.tsx with this component
+// 2. Or create a new route that uses this component
+// 3. The page will automatically load content from the CMS
+// 4. Admins can edit content through /admin/website/pages/landing
+// 5. Changes will be reflected immediately on the frontend
+
+/*
+Example of how to replace app/page.tsx:
+
+// app/page.tsx
+export { default } from './dynamic-landing-page'
+
+Or import and use directly:
+
+// app/page.tsx
+import DynamicLandingPage from './dynamic-landing-page'
+export default DynamicLandingPage
+*/

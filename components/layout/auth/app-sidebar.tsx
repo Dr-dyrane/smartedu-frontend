@@ -24,7 +24,7 @@ import {
 } from "@/components/ui/sidebar"; // Adjust path
 import {
     LayoutDashboard, Users as AdminUsersIcon, LifeBuoy, LogOut,
-    BarChart3,
+    BarChart3, Globe,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"; // Import TooltipProvider if not implicitly wrapping elsewhere
@@ -69,6 +69,7 @@ export const adminNavItems: NavItem[] = [
     // { title: "Pricing", href: "/admin/pricing", icon: Money, roles: ["admin"] },
     { title: "Payments", href: "/payments", icon: Money, roles: ["admin"] },
     { title: "Analytics", href: "/admin/analytics", icon: BarChart3, roles: ["admin"] },
+    { title: "Website", href: "/admin/website", icon: Globe, roles: ["admin"] },
     { title: "Tickets", href: "/support/tickets", icon: LifeBuoy, roles: ["admin"] },
     {
         title: "Feedbacks",

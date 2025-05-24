@@ -74,7 +74,7 @@ app/layout.tsx                        # UpdateDetector integration
 ### ✅ Documentation
 ```
 docs/simple-app-updates.md           # Technical documentation
-CACHE_MANAGEMENT_SOLUTION.md         # This summary
+docs/features/cache-management/solution.md  # This summary
 README.md                             # Updated with cache management section
 ```
 

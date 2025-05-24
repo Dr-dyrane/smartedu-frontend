@@ -37,6 +37,7 @@ import searchReducer from "@/features/search/store/search-slice";
 import analyticsReducer from "@/features/analytics/store/analytics-slice";
 import reportsReducer from "@/features/analytics/store/reports-slice";
 import studentBiodataReducer from "@/features/analytics/store/student-biodata-slice";
+import websiteReducer from "@/features/website/store/website-slice";
 
 // --- Custom Cookie Storage ---
 const cookieStorage = {
@@ -92,6 +93,7 @@ const persistConfig = {
 		"analytics",
 		"reports",
 		"studentBiodata",
+		"website",
 	],
 };
 
@@ -120,6 +122,7 @@ const rootReducer = combineReducers({
 	analytics: analyticsReducer,
 	reports: reportsReducer,
 	studentBiodata: studentBiodataReducer,
+	website: websiteReducer,
 });
 
 // --- Persisted Reducer ---

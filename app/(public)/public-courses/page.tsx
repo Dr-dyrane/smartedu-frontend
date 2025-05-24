@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useMemo } from "react"
 import { PublicCourse } from "@/features/public-course/types/public-course-interface"
-import { DyraneCard, DyraneCardContent, DyraneCardHeader, DyraneCardTitle, DyraneCardDescription } from "@/components/dyrane-ui/dyrane-card"
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
 import { DyraneButton } from "@/components/dyrane-ui/dyrane-button"
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog"
 import { Input } from "@/components/ui/input"
@@ -436,19 +436,19 @@ export default function PublicCoursesPage() {
                 ))}
               </motion.div>
             ) : (
-              <DyraneCard className="p-6 text-center">
-                <DyraneCardHeader>
-                  <DyraneCardTitle>No courses found</DyraneCardTitle>
-                  <DyraneCardDescription>
+              <Card className="p-6 text-center">
+                <CardHeader>
+                  <CardTitle>No courses found</CardTitle>
+                  <CardDescription>
                     Try adjusting your filters or search query.
-                  </DyraneCardDescription>
-                </DyraneCardHeader>
-                <DyraneCardContent>
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
                   <DyraneButton onClick={clearFilters}>
                     Clear Filters
                   </DyraneButton>
-                </DyraneCardContent>
-              </DyraneCard>
+                </CardContent>
+              </Card>
             )}
           </TabsContent>
 
