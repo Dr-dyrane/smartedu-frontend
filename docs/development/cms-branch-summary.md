@@ -1,8 +1,8 @@
 # CMS Feature Branch - Quick Reference Summary
 
-**Created:** January 19, 2025  
-**Branch:** `feature/cms-system`  
-**Commit:** `27aeeeb`  
+**Created:** January 19, 2025
+**Branch:** `feature/cms-system`
+**Commit:** `27aeeeb`
 **Status:** ✅ Successfully created and pushed to remote
 
 ## 🎯 **Quick Access Commands**
@@ -187,6 +187,22 @@ git diff --name-only main..feature/cms-system
 git checkout main
 ```
 
+### **Align remotes (origin and easynety):**
+```bash
+# Check remote status
+git remote -v
+git fetch --all
+git log --oneline origin/main easynety/main -3
+
+# Push to easynety remote to align
+git checkout main
+git push easynety main
+
+# Verify alignment
+git fetch --all
+git log --oneline origin/main easynety/main -3
+```
+
 ---
 
 **Remember:** This branch serves as a complete CMS implementation store that can be developed independently, synced regularly with main, and integrated when ready for production. All documentation is comprehensive and ready for the backend team to implement a production-ready CMS system.
@@ -196,3 +212,41 @@ git checkout main
 2. Frontend team tests enhanced mock data
 3. Regular syncing with main branch (weekly)
 4. Integration when CMS is ready for production
+
+## 🚀 **Quick Command Reference**
+
+### **Daily CMS Development:**
+```bash
+# Continue CMS development (you're already here)
+git checkout feature/cms-system
+
+# Make changes and commit
+git add .
+git commit -m "feat(cms): add new feature"
+git push origin feature/cms-system
+```
+
+### **Weekly Sync with Main:**
+```bash
+# Sync CMS branch with main updates (weekly)
+git checkout feature/cms-system
+git fetch origin
+git merge origin/main
+git push origin feature/cms-system
+```
+
+### **Switch Between Branches:**
+```bash
+# Switch to main to see documentation
+git checkout main
+
+# Switch back to CMS development
+git checkout feature/cms-system
+```
+
+### **Remote Alignment (when needed):**
+```bash
+# Ensure origin main and easynety remote are aligned
+git checkout main
+git push easynety main
+```
